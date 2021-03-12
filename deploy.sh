@@ -21,3 +21,8 @@ while [[ $(oc get pods -l app=etherpad -n $PROJECT_NAME -o 'jsonpath={..status.c
 
 # Clean project
 oc delete pod etherpad-1-deploy postgresql-1-deploy
+
+ETHERPAD_ROUTE=$(oc get routes -l app=etherpad -n $PROJECT_NAME --template='https://{{(index .items 0).spec.host }}/p/openshift')
+
+echo -e "\nEtherpad available in this URL:"
+echo -e " * URL: $ETHERPAD_ROUTE"
